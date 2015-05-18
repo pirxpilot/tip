@@ -14,7 +14,7 @@
     "component/events": "1.0.6",
     "component/domify": "1.2.2",
     "component/classes": "1.2.1",
-    "component/css": "0.0.4",
+    "ianstormtaylor/css": "0.3.0",
     "timoxley/offset": "0.0.3"
   },
   "development": {
