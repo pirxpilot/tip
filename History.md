@@ -1,4 +1,9 @@
 
+1.1.0 / 2015-05-17
+==================
+
+ * replace component/css with ianstormtaylor/css
+
 1.0.3 / 2014-04-08
 ==================
 
