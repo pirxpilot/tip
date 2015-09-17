@@ -1,5 +1,5 @@
 {
-  "name": "component-tip",
+  "name": "code42day-tip",
   "description": "Tip component",
   "version": "2.5.0",
   "keywords": [
@@ -10,26 +10,27 @@
     "ui"
   ],
   "dependencies": {
-    "bounding-client-rect": "1.0.5",
+    "code42day-css": "~0",
+    "bounding-client-rect": "^1.0.5",
     "component-bind": "*",
-    "component-classes": "1.2.1",
-    "component-css": "0.0.6",
-    "component-emitter": "1.1.3",
-    "component-events": "1.0.9",
-    "component-query": "0.0.3",
-    "domify": "1.3.0",
-    "html-browserify": "0.0.4"
+    "component-classes": "^1.2.1",
+    "component-emitter": "^1.1.3",
+    "component-events": "^1.0.9",
+    "component-query": "~0",
+    "domify": "^1.3.0"
   },
   "browser": {
     "bind": "component-bind",
     "classes": "component-classes",
-    "css": "component-css",
+    "css": "code42day-css",
     "emitter": "component-emitter",
     "events": "component-events",
     "query": "component-query"
   },
   "browserify": {
-    "transform": "html-browserify"
+    "transform": [
+      "stringify"
+    ]
   },
   "style": "tip.css",
   "component": {
@@ -45,7 +46,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/component/tip.git"
+    "url": "https://github.com/code42day/tip.git"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "component-event": "^0.1.4",
+    "stringify": "^3.1.0"
+  }
 }

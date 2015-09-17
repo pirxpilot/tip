@@ -1,1 +1,5 @@
 test
+build
+components
+component.json
+Makefile
