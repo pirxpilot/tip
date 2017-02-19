@@ -1,8 +1,5 @@
 
-build: tip.css index.js template.html components
-	@component build --dev
-
-build-browserify: node_modules index.js template.html
+build: node_modules index.js template.html
 	@mkdir -p build
 	@browserify \
 		--require component-event:event \
@@ -10,11 +7,11 @@ build-browserify: node_modules index.js template.html
 		--require ./index.js:tip \
 		--outfile build/build.js
 
-components: component.json
-	@component install --dev
+node_modules: package.json
+	npm install
 
 clean:
-	rm -fr build components node_modules
+	rm -fr build node_modules
 
 test: build
 	@open test/index.html

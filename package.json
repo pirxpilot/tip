@@ -1,5 +1,5 @@
 {
-  "name": "code42day-tip",
+  "name": "@pirxpilot/tip",
   "description": "Tip component",
   "version": "2.5.1",
   "keywords": [
@@ -46,7 +46,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/code42day/tip.git"
+    "url": "https://github.com/pirxpilot/tip.git"
   },
   "license": "MIT",
   "devDependencies": {

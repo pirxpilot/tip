@@ -13,7 +13,7 @@
 ## Installation
 
 ``` bash
-$ npm install component-tip
+$ npm install @pirxpilot/tip
 ```
 
 ## Features
