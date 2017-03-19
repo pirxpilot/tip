@@ -1,4 +1,10 @@
 
+2.5.3 / 2017-03-18
+==================
+
+ * update deprecated dependencies
+ * fix building .css for test
+
 2.5.2 / 2017-02-18
 ==================
 
