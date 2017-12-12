@@ -32,12 +32,15 @@
       "stringify"
     ]
   },
+  "stringify": {
+    "minify": true
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pirxpilot/tip.git"
   },
   "license": "MIT",
   "devDependencies": {
-    "stringify": "^3.1.0"
+    "stringify": "~5"
   }
 }
