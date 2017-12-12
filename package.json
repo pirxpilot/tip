@@ -32,18 +32,6 @@
       "stringify"
     ]
   },
-  "style": "tip.css",
-  "component": {
-    "styles": [
-      "tip.css"
-    ],
-    "templates": [
-      "template.html"
-    ],
-    "scripts": {
-      "tip/index.js": "index.js"
-    }
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pirxpilot/tip.git"
