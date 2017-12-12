@@ -4,6 +4,7 @@
     <title>Tip</title>
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="../build/build.css">
+    <link rel="stylesheet" href="https://rawgit.com/component/aurora-tip/master/aurora-tip.css" />
     <style>
       body {
         padding: 60px;
@@ -76,17 +77,16 @@
     <script>
       var Tip = require('tip');
       var q = require('query');
-      var events = require('event');
 
       '#bottom,#left,#right,#top,#bottom-right,#bottom-left,#top-right,#top-left'.split(',').forEach(function(id){
         var el = q(id),
           tip = new Tip(el.textContent);
         tip.position(el.textContent.toLowerCase().split('-').join(' '));
 
-        events.bind(el, 'mouseenter', function(){
+        el.addEventListener('mouseenter', function(){
           tip.show(el);
         });
-        events.bind(el, 'mouseleave', function(){
+        el.addEventListener('mouseleave', function(){
           tip.hide(200);
         });
       })
@@ -101,10 +101,10 @@
       tip.position('top');
 
       var el = q('#markup');
-      events.bind(el, 'mouseenter', function(){
+      el.addEventListener('mouseenter', function(){
         tip.show('#markup');
       });
-      events.bind(el, 'mouseleave', function(){
+      el.addEventListener('mouseleave', function(){
         tip.hide(200);
       });
 
@@ -121,7 +121,7 @@
 
       var absolute = new Tip('(25, 25)');
       absolute.show(25, 25).position('right');
-      events.bind(q('.hide-tip'), 'click', function() {
+      q('.hide-tip').addEventListener('click', function() {
         absolute.hide();
       });
 
