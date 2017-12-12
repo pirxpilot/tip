@@ -7,7 +7,6 @@ var query = require('query');
 var domify = require('domify');
 var events = require('@pirxpilot/events');
 var Emitter = require('emitter');
-var classes = require('classes');
 var getBoundingClientRect = require('bounding-client-rect');
 
 var html = domify(require('./template.html'));
@@ -60,7 +59,6 @@ function Tip(content, options) {
   this.pad = null == options.pad ? 15 : options.pad;
   this.el = html.cloneNode(true);
   this.events = events(this.el, this);
-  this.classes = classes(this.el);
   this.inner = query('.tip-inner', this.el);
   this.message(content);
   this.position('top');
@@ -154,7 +152,7 @@ Tip.prototype.cancelHideOnHover = function(){
 
 Tip.prototype.effect = function(type){
   this._effect = type;
-  this.classes.add(type);
+  this.el.classList.add(type);
   return this;
 };
 
@@ -201,8 +199,8 @@ Tip.prototype.show = function(el){
 
   // show it
   document.body.appendChild(this.el);
-  this.classes.add('tip-' + this._position.replace(/\s+/g, '-'));
-  this.classes.remove('tip-hide');
+  this.el.classList.add('tip-' + this._position.replace(/\s+/g, '-'));
+  this.el.classList.remove('tip-hide');
 
   // x,y
   if ('number' == typeof el) {
@@ -430,7 +428,7 @@ Tip.prototype.hide = function(ms){
   }
 
   // hide
-  this.classes.add('tip-hide');
+  this.el.classList.add('tip-hide');
   if (this._effect) {
     setTimeout(this.remove.bind(this), 300);
   } else {
