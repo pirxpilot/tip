@@ -6,7 +6,7 @@ var css = require('css');
 var bind = require('bind');
 var query = require('query');
 var domify = require('domify');
-var events = require('events');
+var events = require('@pirxpilot/events');
 var Emitter = require('emitter');
 var classes = require('classes');
 var getBoundingClientRect = require('bounding-client-rect');
@@ -114,7 +114,7 @@ Tip.prototype.attach = function(el){
  * @api private
  */
 
-Tip.prototype.onmouseover = function() {
+Tip.prototype.mouseover = function() {
   this.show(this.target);
   this.cancelHide();
 };
@@ -127,7 +127,7 @@ Tip.prototype.onmouseover = function() {
  * @api private
  */
 
-Tip.prototype.onmouseout = function() {
+Tip.prototype.mouseout = function() {
   this.hide(this.delay);
 };
 
