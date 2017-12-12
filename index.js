@@ -3,7 +3,6 @@
  */
 
 var css = require('css');
-var bind = require('bind');
 var query = require('query');
 var domify = require('domify');
 var events = require('@pirxpilot/events');
@@ -426,14 +425,14 @@ Tip.prototype.hide = function(ms){
 
   // duration
   if (ms) {
-    this._hide = setTimeout(bind(this, this.hide), ms);
+    this._hide = setTimeout(this.hide.bind(this), ms);
     return this;
   }
 
   // hide
   this.classes.add('tip-hide');
   if (this._effect) {
-    setTimeout(bind(this, this.remove), 300);
+    setTimeout(this.remove.bind(this), 300);
   } else {
     self.remove();
   }
