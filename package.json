@@ -10,21 +10,14 @@
     "ui"
   ],
   "dependencies": {
+    "@pirxpilot/events": "~1",
     "bounding-client-rect": "^1.0.5",
-    "component-bind": "*",
-    "component-classes": "^1.2.1",
     "component-emitter": "^1.1.3",
-    "component-events": "^1.0.9",
     "component-query": "~0",
-    "domify": "^1.3.0",
-    "@pirxpilot/css": "^0.3.2"
+    "domify": "^1.3.0"
   },
   "browser": {
-    "bind": "component-bind",
-    "classes": "component-classes",
-    "css": "@pirxpilot/css",
     "emitter": "component-emitter",
-    "events": "component-events",
     "query": "component-query"
   },
   "browserify": {
@@ -32,17 +25,8 @@
       "stringify"
     ]
   },
-  "style": "tip.css",
-  "component": {
-    "styles": [
-      "tip.css"
-    ],
-    "templates": [
-      "template.html"
-    ],
-    "scripts": {
-      "tip/index.js": "index.js"
-    }
+  "stringify": {
+    "minify": true
   },
   "repository": {
     "type": "git",
@@ -50,7 +34,6 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "component-event": "^0.1.4",
-    "stringify": "^3.1.0"
+    "stringify": "~5"
   }
 }

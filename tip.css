@@ -11,8 +11,6 @@
 
 .tip.fade {
   transition: opacity 100ms;
-  -moz-transition: opacity 100ms;
-  -webkit-transition: opacity 100ms;
 }
 
 .tip-hide {

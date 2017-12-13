@@ -1,9 +1,13 @@
 CSS = tip.css
 
-build: node_modules index.js template.html
-	@mkdir -p build
-	@browserify \
-		--require component-event:event \
+compile: build/build.js build/build.css
+
+build:
+	mkdir -p $@
+
+build/build.js: index.js template.html | build node_modules
+	browserify \
+		--debug \
 		--require query \
 		--require ./index.js:tip \
 		--outfile build/build.js
@@ -12,7 +16,7 @@ build/build.css: $(CSS) | build
 	cat $^ > $@
 
 node_modules: package.json
-	npm install
+	npm install && touch $@
 
 clean:
 	rm -fr build node_modules
@@ -20,4 +24,4 @@ clean:
 test: build build/build.css
 	@open test/index.html
 
-.PHONY: clean test
+.PHONY: clean test compile

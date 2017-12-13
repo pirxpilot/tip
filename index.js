@@ -2,13 +2,10 @@
  * Module dependencies.
  */
 
-var css = require('css');
-var bind = require('bind');
 var query = require('query');
 var domify = require('domify');
-var events = require('events');
+var events = require('@pirxpilot/events');
 var Emitter = require('emitter');
-var classes = require('classes');
 var getBoundingClientRect = require('bounding-client-rect');
 
 var html = domify(require('./template.html'));
@@ -61,7 +58,6 @@ function Tip(content, options) {
   this.pad = null == options.pad ? 15 : options.pad;
   this.el = html.cloneNode(true);
   this.events = events(this.el, this);
-  this.classes = classes(this.el);
   this.inner = query('.tip-inner', this.el);
   this.message(content);
   this.position('top');
@@ -114,7 +110,7 @@ Tip.prototype.attach = function(el){
  * @api private
  */
 
-Tip.prototype.onmouseover = function() {
+Tip.prototype.mouseover = function() {
   this.show(this.target);
   this.cancelHide();
 };
@@ -127,7 +123,7 @@ Tip.prototype.onmouseover = function() {
  * @api private
  */
 
-Tip.prototype.onmouseout = function() {
+Tip.prototype.mouseout = function() {
   this.hide(this.delay);
 };
 
@@ -155,7 +151,7 @@ Tip.prototype.cancelHideOnHover = function(){
 
 Tip.prototype.effect = function(type){
   this._effect = type;
-  this.classes.add(type);
+  this.el.classList.add(type);
   return this;
 };
 
@@ -202,18 +198,15 @@ Tip.prototype.show = function(el){
 
   // show it
   document.body.appendChild(this.el);
-  this.classes.add('tip-' + this._position.replace(/\s+/g, '-'));
-  this.classes.remove('tip-hide');
+  this.el.classList.add('tip-' + this._position.replace(/\s+/g, '-'));
+  this.el.classList.remove('tip-hide');
 
   // x,y
   if ('number' == typeof el) {
     var x = arguments[0];
     var y = arguments[1];
     this.emit('show');
-    css(this.el, {
-      top: y,
-      left: x
-    });
+    setPosition(this.el, { top: y, left: x });
     return this;
   }
 
@@ -247,7 +240,7 @@ Tip.prototype.reposition = function(){
   }
   this.replaceClass(pos);
   this.emit('reposition');
-  css(this.el, off);
+  setPosition(this.el, off);
 };
 
 /**
@@ -426,14 +419,14 @@ Tip.prototype.hide = function(ms){
 
   // duration
   if (ms) {
-    this._hide = setTimeout(bind(this, this.hide), ms);
+    this._hide = setTimeout(this.hide.bind(this), ms);
     return this;
   }
 
   // hide
-  this.classes.add('tip-hide');
+  this.el.classList.add('tip-hide');
   if (this._effect) {
-    setTimeout(bind(this, this.remove), 300);
+    setTimeout(this.remove.bind(this), 300);
   } else {
     self.remove();
   }
@@ -482,4 +475,12 @@ function offset (box, doc) {
     top: box.top  + scrollTop  - clientTop,
     left: box.left + scrollLeft - clientLeft
   };
+}
+
+/**
+ * set element position by modifying its style
+ */
+function setPosition(el, pos) {
+  el.style.left = pos.left +'px';
+  el.style.top = pos.top + 'px';
 }
