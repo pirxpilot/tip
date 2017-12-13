@@ -1,4 +1,12 @@
 
+2.5.4 / 2017-12-12
+==================
+
+ * remove @pirxpilot/css, component-classes, and  component-bind
+ * replace component-events with @pirxpilot/events
+ * minify html template
+ * remove prefixed CSS properties
+
 2.5.3 / 2017-03-18
 ==================
 
