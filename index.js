@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 
-var css = require('css');
 var query = require('query');
 var domify = require('domify');
 var events = require('@pirxpilot/events');
@@ -207,10 +206,7 @@ Tip.prototype.show = function(el){
     var x = arguments[0];
     var y = arguments[1];
     this.emit('show');
-    css(this.el, {
-      top: y,
-      left: x
-    });
+    setPosition(this.el, { top: y, left: x });
     return this;
   }
 
@@ -244,7 +240,7 @@ Tip.prototype.reposition = function(){
   }
   this.replaceClass(pos);
   this.emit('reposition');
-  css(this.el, off);
+  setPosition(this.el, off);
 };
 
 /**
@@ -479,4 +475,12 @@ function offset (box, doc) {
     top: box.top  + scrollTop  - clientTop,
     left: box.left + scrollLeft - clientLeft
   };
+}
+
+/**
+ * set element position by modifying its style
+ */
+function setPosition(el, pos) {
+  el.style.left = pos.left +'px';
+  el.style.top = pos.top + 'px';
 }
