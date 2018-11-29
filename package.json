@@ -35,5 +35,10 @@
   "license": "MIT",
   "devDependencies": {
     "stringify": "~5"
-  }
+  },
+  "files": [
+    "index.js",
+    "template.html",
+    "tip.css"
+  ]
 }
