@@ -117,7 +117,7 @@
       auto.show('#auto-top');
 
 
-      Tip('a[title]', { delay: 1000 });
+      Tip.of('a[title]', { delay: 1000 });
 
       var absolute = new Tip('(25, 25)');
       absolute.show(25, 25).position('right');
@@ -125,9 +125,9 @@
         absolute.hide();
       });
 
-      Tip('#hover-value', { delay: 1000, value: 'Hello' });
+      Tip.of('#hover-value', { delay: 1000, value: 'Hello' });
 
-      Tip('#terse-hover-value', 'Hi');
+      Tip.of('#terse-hover-value', 'Hi');
 
       var big = new Tip('Just a bigger tip example');
       big.show('#big');
