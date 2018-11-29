@@ -4,7 +4,7 @@
 
 const domify = require('domify');
 const events = require('@pirxpilot/events');
-const Emitter = require('emitter');
+const Emitter = require('component-emitter');
 const getBoundingClientRect = require('bounding-client-rect');
 
 const html = domify(require('./template.html'));
