@@ -1,3 +1,4 @@
+PROJECT = tip
 CSS = tip.css
 
 compile: build/build.js build/build.css
@@ -9,7 +10,7 @@ build/build.js: index.js template.html | build node_modules
 	browserify \
 		--debug \
 		--require query \
-		--require ./index.js:tip \
+		--require ./index.js:$(PROJECT) \
 		--outfile build/build.js
 
 build/build.css: $(CSS) | build
