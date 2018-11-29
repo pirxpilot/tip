@@ -13,12 +13,10 @@
     "@pirxpilot/events": "~1",
     "bounding-client-rect": "^1.0.5",
     "component-emitter": "^1.1.3",
-    "component-query": "~0",
     "domify": "^1.3.0"
   },
   "browser": {
-    "emitter": "component-emitter",
-    "query": "component-query"
+    "emitter": "component-emitter"
   },
   "browserify": {
     "transform": [

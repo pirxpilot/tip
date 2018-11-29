@@ -9,7 +9,6 @@ build:
 build/build.js: index.js template.html | build node_modules
 	browserify \
 		--debug \
-		--require query \
 		--require ./index.js:$(PROJECT) \
 		--outfile build/build.js
 

@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 
-const query = require('query');
 const domify = require('domify');
 const events = require('@pirxpilot/events');
 const Emitter = require('emitter');
@@ -35,7 +34,7 @@ class Tip extends Emitter {
     this.pad = pad;
     this.el = html.cloneNode(true);
     this.events = events(this.el, this);
-    this.inner = query('.tip-inner', this.el);
+    this.inner = this.el.querySelector('.tip-inner');
     this.message(content);
     this.position('top');
     this.static = !!options.static;
@@ -164,7 +163,7 @@ class Tip extends Emitter {
    */
 
   show(el) {
-    if ('string' === typeof el) el = query(el);
+    if ('string' === typeof el) el = document.querySelector(el);
 
     // show it
     document.body.appendChild(this.el);
@@ -442,7 +441,7 @@ module.exports = Tip;
 
 function tip(elem, options) {
   if ('string' === typeof options) options = { value : options };
-  const els = ('string' === typeof elem) ? query.all(elem) : [elem];
+  const els = ('string' === typeof elem) ? document.querySelectorAll(elem) : [elem];
   els.forEach(function(el) {
     const val = options.value || el.getAttribute('title');
     const tip = new Tip(val, options);

@@ -76,10 +76,9 @@
     </div>
     <script>
       var Tip = require('tip');
-      var q = require('query');
 
       '#bottom,#left,#right,#top,#bottom-right,#bottom-left,#top-right,#top-left'.split(',').forEach(function(id){
-        var el = q(id),
+        var el = document.querySelector(id),
           tip = new Tip(el.textContent);
         tip.position(el.textContent.toLowerCase().split('-').join(' '));
 
@@ -89,7 +88,7 @@
         el.addEventListener('mouseleave', function(){
           tip.hide(200);
         });
-      })
+      });
 
       var component = new Tip('<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />');
       component.show('#component');
@@ -100,7 +99,7 @@
       var tip = new Tip('<input type="search" placeholder="Search" />');
       tip.position('top');
 
-      var el = q('#markup');
+      var el = document.querySelector('#markup');
       el.addEventListener('mouseenter', function(){
         tip.show('#markup');
       });
@@ -121,7 +120,7 @@
 
       var absolute = new Tip('(25, 25)');
       absolute.show(25, 25).position('right');
-      q('.hide-tip').addEventListener('click', function() {
+      document.querySelector('.hide-tip').addEventListener('click', function() {
         absolute.hide();
       });
 
