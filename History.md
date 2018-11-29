@@ -1,4 +1,11 @@
 
+3.0.0 / 2018-11-28
+==================
+
+ * remove component-query
+ * use Tip.of instead of Tip wihout `new` keyword
+ * rewrite in ES6
+
 2.5.4 / 2017-12-12
 ==================
 
