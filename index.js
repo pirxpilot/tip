@@ -143,7 +143,7 @@ class Tip extends Emitter {
    * @api public
    */
 
-  position(pos, { auto = false } = {}) {
+  position(pos, { auto = true } = {}) {
     this._position = pos;
     this._auto = auto;
     this.replaceClass(pos);
