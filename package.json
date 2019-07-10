@@ -33,7 +33,6 @@
   },
   "files": [
     "index.js",
-    "template.html",
     "tip.css"
   ]
 }

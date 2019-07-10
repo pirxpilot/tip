@@ -7,8 +7,12 @@ const events = require('@pirxpilot/events');
 const Emitter = require('component-emitter');
 const getBoundingClientRect = require('bounding-client-rect');
 
-const html = domify(require('./template.html'));
-
+const html = domify(`
+  <div class="tip tip-hide">
+    <div class="tip-arrow"></div>
+    <div class="tip-inner"></div>
+  </div>
+`);
 
 /**
  * Initialize a `Tip` with the given `content`.
