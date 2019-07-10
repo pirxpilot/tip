@@ -15,25 +15,10 @@
     "component-emitter": "^1.1.3",
     "domify": "^1.3.0"
   },
-  "browserify": {
-    "transform": [
-      "stringify"
-    ]
-  },
-  "stringify": {
-    "minify": true
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/pirxpilot/tip.git"
-  },
+  "repository": "pirxpilot/tip",
   "license": "MIT",
-  "devDependencies": {
-    "stringify": "~5"
-  },
   "files": [
     "index.js",
-    "template.html",
     "tip.css"
   ]
 }
