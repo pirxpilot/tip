@@ -12,8 +12,7 @@
   "dependencies": {
     "@pirxpilot/events": "~1",
     "bounding-client-rect": "^1.0.5",
-    "component-emitter": "^1.1.3",
-    "domify": "^1.3.0"
+    "component-emitter": "^1.1.3"
   },
   "repository": "pirxpilot/tip",
   "license": "MIT",

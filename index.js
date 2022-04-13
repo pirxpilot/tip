@@ -2,17 +2,23 @@
  * Module dependencies.
  */
 
-const domify = require('domify');
 const events = require('@pirxpilot/events');
 const Emitter = require('component-emitter');
 const getBoundingClientRect = require('bounding-client-rect');
 
-const html = domify(`
-  <div class="tip tip-hide">
-    <div class="tip-arrow"></div>
-    <div class="tip-inner"></div>
-  </div>
-`);
+function create(tag, className) {
+  const el = document.createElement(tag);
+  el.className = className;
+  return el;
+}
+
+function html() {
+  const el = create('div', 'tip tip-hide');
+  el.appendChild(create('div', 'tip-arrow'));
+  const inner = create('div', 'tip-inner');
+  el.appendChild(inner);
+  return { el, inner };
+}
 
 /**
  * Initialize a `Tip` with the given `content`.
@@ -36,9 +42,10 @@ class Tip extends Emitter {
     this.classname = '';
     this.delay = delay;
     this.pad = pad;
-    this.el = html.cloneNode(true);
+    const { el, inner } = html();
+    this.el = el;
+    this.inner = inner;
     this.events = events(this.el, this);
-    this.inner = this.el.querySelector('.tip-inner');
     this.message(content);
     this.position('top');
     this.static = !!options.static;
@@ -54,8 +61,11 @@ class Tip extends Emitter {
    */
 
   message(content) {
-    if ('string' === typeof content) content = domify(content);
-    this.inner.appendChild(content);
+    if ('string' === typeof content) {
+      this.inner.insertAdjacentHTML('beforeend', content);
+    } else {
+      this.inner.appendChild(content);
+    }
     return this;
   }
 
