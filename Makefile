@@ -17,7 +17,7 @@ build/build.css: $(CSS) | build
 
 build/aurora-tip.css: | build
 	curl \
-		--compress \
+		--compressed \
 		--output $@ \
 		https://raw.githubusercontent.com/component/aurora-tip/master/aurora-tip.css
 
