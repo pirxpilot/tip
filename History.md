@@ -1,4 +1,10 @@
 
+3.0.3 / 2022-04-13
+==================
+
+ * remove domify dependency
+ * fix type in curl options
+
 3.0.2 / 2019-07-09
 ==================
 
