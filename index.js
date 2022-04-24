@@ -151,9 +151,10 @@ class Tip extends Emitter {
    * @api public
    */
 
-  position(pos, { auto = true } = {}) {
+  position(pos, { auto = true, nudge = true } = {}) {
     this._position = pos;
     this._auto = auto;
+    this._nudge = nudge;
     this.replaceClass(pos);
     this.emit('reposition');
     return this;
@@ -206,15 +207,22 @@ class Tip extends Emitter {
    *
    * @api private
    */
-
   reposition() {
     let pos = this._position;
     let off = this.offset(pos);
-    const newpos = this._auto && this.suggested(pos, off);
-    if (newpos && newpos !== pos) {
-      pos = newpos;
-      off = this.offset(pos);
+
+    if (this._nudge) {
+      off = this.adjust(pos, off);
     }
+
+    if (this._auto) {
+      const newpos = this.suggested(pos, off);
+      if (newpos && newpos !== pos) {
+        pos = newpos;
+        off = this.offset(pos);
+      }
+    }
+
     this.replaceClass(pos);
     this.emit('reposition');
     setPosition(this.el, off);
@@ -281,6 +289,69 @@ class Tip extends Emitter {
     if (good.bottom) return 'bottom';
     if (good.left) return 'left';
     if (good.right) return 'right';
+  }
+
+  /**
+   * Nudge the component so that if fits into the vieport
+   *
+   * @param {String} pos
+   * @param {Object} offset
+   * @return {Object} new adjusted offset
+   * @api private
+   */
+  adjust(pos, off) {
+    const { el } = this;
+    const ew = el.offsetWidth;
+    const eh = el.offsetHeight;
+
+    const top = document.documentElement.scrollTop;
+    const left = document.documentElement.scrollLeft;
+    const w = document.documentElement.offsetWidth;
+    const h = document.documentElement.offsetHeight;
+
+    const org = {
+      left: off.left,
+      top: off.top
+    };
+
+    const arrow = {};
+
+    if (pos === 'bottom' || pos === 'top') {
+      // too far to the right
+      if (off.left + ew > left + w) {
+        off.left = left + w - ew;
+      }
+      // too far to the left
+      if (off.left < left) {
+        off.left = left;
+      }
+      // moved? adjust arrow position
+      if (org.left !== off.left) {
+        arrow.left = ew / 2 + (org.left - off.left);
+      }
+    } else if (pos === 'left' || pos === 'right') {
+      // too high
+      if (off.top < top) {
+        off.top = top;
+      }
+      // too low
+      if (off.top + eh > top + h) {
+        off.top = top + h - eh;
+      }
+      // moved? adjust arrow position
+      if (org.top !== off.top) {
+        arrow.top = eh / 2 + (org.top - off.top);
+      }
+    }
+
+    // move arrow if needed
+    if (arrow.left || arrow.top) {
+      setPosition(el.querySelector('.tip-arrow'), arrow);
+    } else {
+      el.querySelector('.tip-arrow').removeAttribute('style');
+    }
+
+    return off;
   }
 
   /**
@@ -485,7 +556,7 @@ function offset(box, doc) {
 /**
  * set element position by modifying its style
  */
-function setPosition(el, pos) {
-  el.style.left = `${pos.left}px`;
-  el.style.top = `${pos.top}px`;
+function setPosition(el, { left, top }) {
+  el.style.left = `${left}px`;
+  el.style.top = `${top}px`;
 }
