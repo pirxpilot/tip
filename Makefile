@@ -7,10 +7,11 @@ build:
 	mkdir -p $@
 
 build/build.js: index.js | build node_modules
-	browserify \
-		--debug \
-		--require ./index.js:$(PROJECT) \
-		--outfile build/build.js
+	esbuild \
+		--bundle $< \
+		--global-name=Tip \
+		--sourcemap \
+		--outfile=$@
 
 build/build.css: $(CSS) | build
 	cat $^ > $@
@@ -22,7 +23,8 @@ build/aurora-tip.css: | build
 		https://raw.githubusercontent.com/component/aurora-tip/master/aurora-tip.css
 
 node_modules: package.json
-	npm install && touch $@
+	yarn
+	touch $@
 
 clean:
 	rm -fr build node_modules
