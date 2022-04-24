@@ -2,13 +2,13 @@
 <html>
   <head>
     <title>Tip</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="stylesheet" href="../build/build.css" />
     <link rel="stylesheet" href="../build/aurora-tip.css" />
     <style>
       body {
         padding: 60px;
-        font: 300 14px "Helvetica Neue", Helvetica, Arial;
+        font: 300 14px 'Helvetica Neue', Helvetica, Arial;
         min-height: 1000px;
       }
       a {
@@ -41,9 +41,10 @@
       var Tip = require('tip');
       Tip.effect = 'fade';
 
-      var maru = new Tip('<img src="https://images.unsplash.com/photo-1490718687940-0ecadf414600?&fit=crop&w=200&h=200" width="200" height="200" />');
+      var maru = new Tip(
+        '<img src="https://images.unsplash.com/photo-1490718687940-0ecadf414600?&fit=crop&w=200&h=200" width="200" height="200" />'
+      );
       maru.position('top').show('#maru');
-
     </script>
   </body>
 </html>

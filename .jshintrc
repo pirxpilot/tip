@@ -3,7 +3,7 @@
   "eqnull": true,
   "immed": true,
   "latedef": "nofunc",
-  "mocha" : true,
+  "mocha": true,
   "newcap": true,
   "noarg": true,
   "node": true,

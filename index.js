@@ -33,10 +33,7 @@ class Tip extends Emitter {
   }
 
   constructor(content, options = {}) {
-    const {
-      delay = 300,
-      pad = 15
-    } = options;
+    const { delay = 300, pad = 15 } = options;
 
     super();
     this.classname = '';
@@ -316,12 +313,14 @@ class Tip extends Emitter {
     const pad = this.pad;
 
     const tipRect = getBoundingClientRect(this.el);
-    if (!tipRect) throw new Error('could not get bounding client rect of Tip element');
+    if (!tipRect)
+      throw new Error('could not get bounding client rect of Tip element');
     const ew = tipRect.width;
     const eh = tipRect.height;
 
     const targetRect = getBoundingClientRect(this.target);
-    if (!targetRect) throw new Error('could not get bounding client rect of `target`');
+    if (!targetRect)
+      throw new Error('could not get bounding client rect of `target`');
     const tw = targetRect.width;
     const th = targetRect.height;
 
@@ -454,9 +453,10 @@ module.exports = Tip;
  */
 
 function tip(elem, options) {
-  if ('string' === typeof options) options = { value : options };
-  const els = ('string' === typeof elem) ? document.querySelectorAll(elem) : [elem];
-  els.forEach(function(el) {
+  if ('string' === typeof options) options = { value: options };
+  const els =
+    'string' === typeof elem ? document.querySelectorAll(elem) : [elem];
+  els.forEach(function (el) {
     const val = options.value || el.getAttribute('title');
     const tip = new Tip(val, options);
     el.setAttribute('title', '');
@@ -464,7 +464,6 @@ function tip(elem, options) {
     tip.attach(el);
   });
 }
-
 
 /**
  * Extracted from `timoxley/offset`, but directly using a
@@ -476,16 +475,16 @@ function tip(elem, options) {
  * @api private
  */
 
-function offset (box, doc) {
+function offset(box, doc) {
   const body = doc.body || doc.getElementsByTagName('body')[0];
   const docEl = doc.documentElement || body.parentNode;
-  const clientTop  = docEl.clientTop  || body.clientTop  || 0;
+  const clientTop = docEl.clientTop || body.clientTop || 0;
   const clientLeft = docEl.clientLeft || body.clientLeft || 0;
-  const scrollTop  = window.pageYOffset || docEl.scrollTop;
+  const scrollTop = window.pageYOffset || docEl.scrollTop;
   const scrollLeft = window.pageXOffset || docEl.scrollLeft;
 
   return {
-    top: box.top  + scrollTop  - clientTop,
+    top: box.top + scrollTop - clientTop,
     left: box.left + scrollLeft - clientLeft
   };
 }

@@ -2,13 +2,13 @@
 <html>
   <head>
     <title>Tip</title>
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="../build/build.css">
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../build/build.css" />
     <link rel="stylesheet" href="../build/aurora-tip.css" />
     <style>
       body {
         padding: 60px;
-        font: 300 14px "Helvetica Neue", Helvetica, Arial;
+        font: 300 14px 'Helvetica Neue', Helvetica, Arial;
         min-height: 1000px;
       }
       a {
@@ -66,7 +66,7 @@
       <a href="#" id="auto-top">Auto</a>
       <a href="#" id="auto-bottom">Auto</a>
       <a href="#" id="component">component</a>
-	  <a href="#" id="component-static">component (static)</a>
+      <a href="#" id="component-static">component (static)</a>
       <a href="#" title="I'm using a title attr">Hover</a>
       <a href="#" title="I'm another link">Hover</a>
       <a href="#" id="hover-value">Hover Value</a>
@@ -77,33 +77,40 @@
     <script>
       var Tip = require('tip');
 
-      '#bottom,#left,#right,#top,#bottom-right,#bottom-left,#top-right,#top-left'.split(',').forEach(function(id){
-        var el = document.querySelector(id),
-          tip = new Tip(el.textContent);
-        tip.position(el.textContent.toLowerCase().split('-').join(' '));
+      '#bottom,#left,#right,#top,#bottom-right,#bottom-left,#top-right,#top-left'
+        .split(',')
+        .forEach(function (id) {
+          var el = document.querySelector(id),
+            tip = new Tip(el.textContent);
+          tip.position(el.textContent.toLowerCase().split('-').join(' '));
 
-        el.addEventListener('mouseenter', function(){
-          tip.show(el);
+          el.addEventListener('mouseenter', function () {
+            tip.show(el);
+          });
+          el.addEventListener('mouseleave', function () {
+            tip.hide(200);
+          });
         });
-        el.addEventListener('mouseleave', function(){
-          tip.hide(200);
-        });
-      });
 
-      var component = new Tip('<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />');
+      var component = new Tip(
+        '<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />'
+      );
       component.show('#component');
 
-      var component_static = new Tip('<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />', { static: true });
+      var component_static = new Tip(
+        '<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />',
+        { static: true }
+      );
       component_static.show('#component-static');
 
       var tip = new Tip('<input type="search" placeholder="Search" />');
       tip.position('top');
 
       var el = document.querySelector('#markup');
-      el.addEventListener('mouseenter', function(){
+      el.addEventListener('mouseenter', function () {
         tip.show('#markup');
       });
-      el.addEventListener('mouseleave', function(){
+      el.addEventListener('mouseleave', function () {
         tip.hide(200);
       });
 
@@ -115,14 +122,15 @@
       auto.position('top');
       auto.show('#auto-top');
 
-
       Tip.of('a[title]', { delay: 1000 });
 
       var absolute = new Tip('(25, 25)');
       absolute.show(25, 25).position('right');
-      document.querySelector('.hide-tip').addEventListener('click', function() {
-        absolute.hide();
-      });
+      document
+        .querySelector('.hide-tip')
+        .addEventListener('click', function () {
+          absolute.hide();
+        });
 
       Tip.of('#hover-value', { delay: 1000, value: 'Hello' });
 
@@ -133,13 +141,17 @@
       big.position('top left');
 
       var border = new Tip('Tip below');
-      border.position('bottom',{
-        auto: false
-      }).show('#border');
+      border
+        .position('bottom', {
+          auto: false
+        })
+        .show('#border');
       border = new Tip('Tip on the right');
-      border.position('right', {
-        auto: false
-      }).show('#border');
+      border
+        .position('right', {
+          auto: false
+        })
+        .show('#border');
     </script>
   </body>
 </html>
