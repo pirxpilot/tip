@@ -1,7 +1,4 @@
-/**
- * Module dependencies.
- */
-
+const assert = require('assert');
 const events = require('@pirxpilot/events');
 const Emitter = require('component-emitter');
 const getBoundingClientRect = require('bounding-client-rect');
@@ -310,22 +307,18 @@ class Tip extends Emitter {
    */
 
   offset(pos) {
-    const pad = this.pad;
+    const { pad } = this;
 
     const tipRect = getBoundingClientRect(this.el);
-    if (!tipRect)
-      throw new Error('could not get bounding client rect of Tip element');
-    const ew = tipRect.width;
-    const eh = tipRect.height;
+    assert(tipRect, 'could not get bounding client rect of Tip element');
+    const { width: ew, height: eh } = tipRect;
 
     const targetRect = getBoundingClientRect(this.target);
-    if (!targetRect)
-      throw new Error('could not get bounding client rect of `target`');
-    const tw = targetRect.width;
-    const th = targetRect.height;
+    assert(targetRect, 'could not get bounding client rect of `target`');
+    const { width: tw, height: th } = targetRect;
 
     const to = offset(targetRect, document);
-    if (!to) throw new Error('could not determine page offset of `target`');
+    assert(to, 'could not determine page offset of `target`');
 
     switch (pos) {
       case 'top':
@@ -369,7 +362,7 @@ class Tip extends Emitter {
           left: to.left + tw / 2 - pad
         };
       default:
-        throw new Error(`invalid position "${pos}"`);
+        assert(false, `invalid position "${pos}"`);
     }
   }
 
