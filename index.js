@@ -1,7 +1,4 @@
-/**
- * Module dependencies.
- */
-
+const assert = require('assert');
 const events = require('@pirxpilot/events');
 const Emitter = require('component-emitter');
 const getBoundingClientRect = require('bounding-client-rect');
@@ -33,10 +30,7 @@ class Tip extends Emitter {
   }
 
   constructor(content, options = {}) {
-    const {
-      delay = 300,
-      pad = 15
-    } = options;
+    const { delay = 300, pad = 15 } = options;
 
     super();
     this.classname = '';
@@ -157,9 +151,10 @@ class Tip extends Emitter {
    * @api public
    */
 
-  position(pos, { auto = true } = {}) {
+  position(pos, { auto = true, nudge = true } = {}) {
     this._position = pos;
     this._auto = auto;
+    this._nudge = nudge;
     this.replaceClass(pos);
     this.emit('reposition');
     return this;
@@ -212,15 +207,22 @@ class Tip extends Emitter {
    *
    * @api private
    */
-
   reposition() {
     let pos = this._position;
-    let off = this.offset(pos);
-    const newpos = this._auto && this.suggested(pos, off);
-    if (newpos && newpos !== pos) {
-      pos = newpos;
-      off = this.offset(pos);
+    let off = pos === 'inner' ? this.innerOffset() : this.offset(pos);
+
+    if (this._nudge) {
+      off = this.adjust(pos, off);
     }
+
+    if (this._auto && pos !== 'inner') {
+      const newpos = this.suggested(pos, off);
+      if (newpos && newpos !== pos) {
+        pos = newpos;
+        off = this.offset(pos);
+      }
+    }
+
     this.replaceClass(pos);
     this.emit('reposition');
     setPosition(this.el, off);
@@ -290,6 +292,69 @@ class Tip extends Emitter {
   }
 
   /**
+   * Nudge the component so that if fits into the vieport
+   *
+   * @param {String} pos
+   * @param {Object} offset
+   * @return {Object} new adjusted offset
+   * @api private
+   */
+  adjust(pos, off) {
+    const { el } = this;
+    const ew = el.offsetWidth;
+    const eh = el.offsetHeight;
+
+    const top = document.documentElement.scrollTop;
+    const left = document.documentElement.scrollLeft;
+    const w = document.documentElement.offsetWidth;
+    const h = document.documentElement.offsetHeight;
+
+    const org = {
+      left: off.left,
+      top: off.top
+    };
+
+    const arrow = {};
+
+    if (pos === 'bottom' || pos === 'top') {
+      // too far to the right
+      if (off.left + ew > left + w) {
+        off.left = left + w - ew;
+      }
+      // too far to the left
+      if (off.left < left) {
+        off.left = left;
+      }
+      // moved? adjust arrow position
+      if (org.left !== off.left) {
+        arrow.left = ew / 2 + (org.left - off.left);
+      }
+    } else if (pos === 'left' || pos === 'right') {
+      // too high
+      if (off.top < top) {
+        off.top = top;
+      }
+      // too low
+      if (off.top + eh > top + h) {
+        off.top = top + h - eh;
+      }
+      // moved? adjust arrow position
+      if (org.top !== off.top) {
+        arrow.top = eh / 2 + (org.top - off.top);
+      }
+    }
+
+    // move arrow if needed
+    if (arrow.left || arrow.top) {
+      setPosition(el.querySelector('.tip-arrow'), arrow);
+    } else {
+      el.querySelector('.tip-arrow').removeAttribute('style');
+    }
+
+    return off;
+  }
+
+  /**
    * Replace position class `name`.
    *
    * @param {String} name
@@ -313,20 +378,18 @@ class Tip extends Emitter {
    */
 
   offset(pos) {
-    const pad = this.pad;
+    const { pad } = this;
 
     const tipRect = getBoundingClientRect(this.el);
-    if (!tipRect) throw new Error('could not get bounding client rect of Tip element');
-    const ew = tipRect.width;
-    const eh = tipRect.height;
+    assert(tipRect, 'could not get bounding client rect of Tip element');
+    const { width: ew, height: eh } = tipRect;
 
     const targetRect = getBoundingClientRect(this.target);
-    if (!targetRect) throw new Error('could not get bounding client rect of `target`');
-    const tw = targetRect.width;
-    const th = targetRect.height;
+    assert(targetRect, 'could not get bounding client rect of `target`');
+    const { width: tw, height: th } = targetRect;
 
     const to = offset(targetRect, document);
-    if (!to) throw new Error('could not determine page offset of `target`');
+    assert(to, 'could not determine page offset of `target`');
 
     switch (pos) {
       case 'top':
@@ -370,8 +433,19 @@ class Tip extends Emitter {
           left: to.left + tw / 2 - pad
         };
       default:
-        throw new Error(`invalid position "${pos}"`);
+        assert(false, `invalid position "${pos}"`);
     }
+  }
+
+  /**
+   * calculate offset for 'inner' position
+   */
+  innerOffset() {
+    const { el, target } = this;
+    return {
+      left: 0,
+      top: target.clientHeight - el.offsetHeight
+    };
   }
 
   /**
@@ -454,9 +528,10 @@ module.exports = Tip;
  */
 
 function tip(elem, options) {
-  if ('string' === typeof options) options = { value : options };
-  const els = ('string' === typeof elem) ? document.querySelectorAll(elem) : [elem];
-  els.forEach(function(el) {
+  if ('string' === typeof options) options = { value: options };
+  const els =
+    'string' === typeof elem ? document.querySelectorAll(elem) : [elem];
+  els.forEach(function (el) {
     const val = options.value || el.getAttribute('title');
     const tip = new Tip(val, options);
     el.setAttribute('title', '');
@@ -464,7 +539,6 @@ function tip(elem, options) {
     tip.attach(el);
   });
 }
-
 
 /**
  * Extracted from `timoxley/offset`, but directly using a
@@ -476,16 +550,16 @@ function tip(elem, options) {
  * @api private
  */
 
-function offset (box, doc) {
+function offset(box, doc) {
   const body = doc.body || doc.getElementsByTagName('body')[0];
   const docEl = doc.documentElement || body.parentNode;
-  const clientTop  = docEl.clientTop  || body.clientTop  || 0;
+  const clientTop = docEl.clientTop || body.clientTop || 0;
   const clientLeft = docEl.clientLeft || body.clientLeft || 0;
-  const scrollTop  = window.pageYOffset || docEl.scrollTop;
+  const scrollTop = window.pageYOffset || docEl.scrollTop;
   const scrollLeft = window.pageXOffset || docEl.scrollLeft;
 
   return {
-    top: box.top  + scrollTop  - clientTop,
+    top: box.top + scrollTop - clientTop,
     left: box.left + scrollLeft - clientLeft
   };
 }
@@ -493,7 +567,7 @@ function offset (box, doc) {
 /**
  * set element position by modifying its style
  */
-function setPosition(el, pos) {
-  el.style.left = `${pos.left}px`;
-  el.style.top = `${pos.top}px`;
+function setPosition(el, { left, top }) {
+  el.style.left = `${left}px`;
+  el.style.top = `${top}px`;
 }
