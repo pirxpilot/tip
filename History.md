@@ -1,4 +1,11 @@
 
+3.1.0 / 2022-04-24
+==================
+
+ * add support for 'inner' position
+ * add support for 'nudge' position mode
+ * use `assert` method instead of throwing Error
+
 3.0.3 / 2022-04-13
 ==================
 
