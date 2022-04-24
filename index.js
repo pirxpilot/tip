@@ -209,13 +209,13 @@ class Tip extends Emitter {
    */
   reposition() {
     let pos = this._position;
-    let off = this.offset(pos);
+    let off = pos === 'inner' ? this.innerOffset() : this.offset(pos);
 
     if (this._nudge) {
       off = this.adjust(pos, off);
     }
 
-    if (this._auto) {
+    if (this._auto && pos !== 'inner') {
       const newpos = this.suggested(pos, off);
       if (newpos && newpos !== pos) {
         pos = newpos;
@@ -435,6 +435,17 @@ class Tip extends Emitter {
       default:
         assert(false, `invalid position "${pos}"`);
     }
+  }
+
+  /**
+   * calculate offset for 'inner' position
+   */
+  innerOffset() {
+    const { el, target } = this;
+    return {
+      left: 0,
+      top: target.clientHeight - el.offsetHeight
+    };
   }
 
   /**
