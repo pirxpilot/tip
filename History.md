@@ -1,4 +1,9 @@
 
+3.1.1 / 2022-06-28
+==================
+
+ * replace nanoassert with @pirxpilot/nanoassert
+
 3.1.0 / 2022-04-24
 ==================
 
