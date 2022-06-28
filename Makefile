@@ -9,6 +9,7 @@ build:
 build/build.js: index.js | build node_modules
 	esbuild \
 		--bundle $< \
+		--define:DEBUG=true \
 		--global-name=Tip \
 		--sourcemap \
 		--outfile=$@
