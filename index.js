@@ -1,7 +1,6 @@
-const assert = require('assert');
-const events = require('@pirxpilot/events');
-const Emitter = require('component-emitter');
-const getBoundingClientRect = require('bounding-client-rect');
+import events from '@pirxpilot/events';
+import getBoundingClientRect from 'bounding-client-rect';
+import Emitter from 'component-emitter';
 
 function create(tag, className) {
   const el = document.createElement(tag);
@@ -24,7 +23,7 @@ function html() {
  * @api public
  */
 
-class Tip extends Emitter {
+export default class Tip extends Emitter {
   static of(...args) {
     return tip(...args);
   }
@@ -171,7 +170,7 @@ class Tip extends Emitter {
    * @api public
    */
 
-  show(el) {
+  show(el, ...args) {
     if ('string' === typeof el) el = document.querySelector(el);
 
     // show it
@@ -181,10 +180,10 @@ class Tip extends Emitter {
 
     // x,y
     if ('number' === typeof el) {
-      const x = arguments[0];
-      const y = arguments[1];
+      const left = el;
+      const top = args[0];
       this.emit('show');
-      setPosition(this.el, { top: y, left: x });
+      setPosition(this.el, { top, left });
       return this;
     }
 
@@ -280,7 +279,7 @@ class Tip extends Emitter {
     }
 
     // attempt to get close to preferred position, i.e. "bottom" or "right"
-    for (let p of positions) {
+    for (const p of positions) {
       if (good[p]) return p;
     }
 
@@ -380,16 +379,12 @@ class Tip extends Emitter {
   offset(pos) {
     const { pad } = this;
 
-    const tipRect = getBoundingClientRect(this.el);
-    assert(tipRect, 'could not get bounding client rect of Tip element');
-    const { width: ew, height: eh } = tipRect;
+    const { width: ew, height: eh } = getBoundingClientRect(this.el);
 
     const targetRect = getBoundingClientRect(this.target);
-    assert(targetRect, 'could not get bounding client rect of `target`');
     const { width: tw, height: th } = targetRect;
 
     const to = offset(targetRect, document);
-    assert(to, 'could not determine page offset of `target`');
 
     switch (pos) {
       case 'top':
@@ -432,8 +427,6 @@ class Tip extends Emitter {
           top: to.top + th,
           left: to.left + tw / 2 - pad
         };
-      default:
-        assert(false, `invalid position "${pos}"`);
     }
   }
 
@@ -508,12 +501,6 @@ class Tip extends Emitter {
 }
 
 /**
- * Expose `Tip`.
- */
-
-module.exports = Tip;
-
-/**
  * Apply the average use-case of simply
  * showing a tool-tip on `el` hover.
  *
@@ -529,8 +516,7 @@ module.exports = Tip;
 
 function tip(elem, options) {
   if ('string' === typeof options) options = { value: options };
-  const els =
-    'string' === typeof elem ? document.querySelectorAll(elem) : [elem];
+  const els = 'string' === typeof elem ? document.querySelectorAll(elem) : [elem];
   els.forEach(function (el) {
     const val = options.value || el.getAttribute('title');
     const tip = new Tip(val, options);

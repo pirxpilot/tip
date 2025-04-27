@@ -9,19 +9,23 @@
     "tip",
     "ui"
   ],
+  "type": "module",
+  "exports": "./index.js",
   "dependencies": {
-    "@pirxpilot/events": "~1",
-    "@pirxpilot/nanoassert": "~1",
+    "@pirxpilot/events": "~3",
     "bounding-client-rect": "^1.0.5",
-    "component-emitter": "^1.1.3"
+    "component-emitter": "~2"
   },
-  "browser": {
-    "assert": "@pirxpilot/nanoassert"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pirxpilot/tip.git"
   },
-  "repository": "pirxpilot/tip",
   "license": "MIT",
   "files": [
     "index.js",
     "tip.css"
-  ]
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  }
 }
