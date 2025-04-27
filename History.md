@@ -1,4 +1,12 @@
 
+4.0.0 / 2025-04-27
+==================
+
+ * update dependencies
+ * remove assert
+ * transition to ESM format
+ * use `biome` as a linter and formatter
+
 3.1.1 / 2022-06-28
 ==================
 
