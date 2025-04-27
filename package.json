@@ -18,10 +18,16 @@
   "browser": {
     "assert": "@pirxpilot/nanoassert"
   },
-  "repository": "pirxpilot/tip",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pirxpilot/tip.git"
+  },
   "license": "MIT",
   "files": [
     "index.js",
     "tip.css"
-  ]
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "^1.9.4"
+  }
 }

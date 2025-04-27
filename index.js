@@ -171,7 +171,7 @@ class Tip extends Emitter {
    * @api public
    */
 
-  show(el) {
+  show(el, ...args) {
     if ('string' === typeof el) el = document.querySelector(el);
 
     // show it
@@ -181,10 +181,10 @@ class Tip extends Emitter {
 
     // x,y
     if ('number' === typeof el) {
-      const x = arguments[0];
-      const y = arguments[1];
+      const left = el;
+      const top = args[0];
       this.emit('show');
-      setPosition(this.el, { top: y, left: x });
+      setPosition(this.el, { top, left });
       return this;
     }
 
@@ -280,7 +280,7 @@ class Tip extends Emitter {
     }
 
     // attempt to get close to preferred position, i.e. "bottom" or "right"
-    for (let p of positions) {
+    for (const p of positions) {
       if (good[p]) return p;
     }
 
@@ -529,8 +529,7 @@ module.exports = Tip;
 
 function tip(elem, options) {
   if ('string' === typeof options) options = { value: options };
-  const els =
-    'string' === typeof elem ? document.querySelectorAll(elem) : [elem];
+  const els = 'string' === typeof elem ? document.querySelectorAll(elem) : [elem];
   els.forEach(function (el) {
     const val = options.value || el.getAttribute('title');
     const tip = new Tip(val, options);
