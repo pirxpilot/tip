@@ -1,7 +1,7 @@
-const assert = require('assert');
-const events = require('@pirxpilot/events');
-const Emitter = require('component-emitter');
-const getBoundingClientRect = require('bounding-client-rect');
+import assert from 'assert';
+import events from '@pirxpilot/events';
+import getBoundingClientRect from 'bounding-client-rect';
+import Emitter from 'component-emitter';
 
 function create(tag, className) {
   const el = document.createElement(tag);
@@ -24,7 +24,7 @@ function html() {
  * @api public
  */
 
-class Tip extends Emitter {
+export default class Tip extends Emitter {
   static of(...args) {
     return tip(...args);
   }
@@ -506,12 +506,6 @@ class Tip extends Emitter {
     return this;
   }
 }
-
-/**
- * Expose `Tip`.
- */
-
-module.exports = Tip;
 
 /**
  * Apply the average use-case of simply

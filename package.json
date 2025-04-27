@@ -9,6 +9,8 @@
     "tip",
     "ui"
   ],
+  "type": "module",
+  "exports": "./index.js",
   "dependencies": {
     "@pirxpilot/events": "~1",
     "@pirxpilot/nanoassert": "~1",
