@@ -1,4 +1,3 @@
-import assert from 'assert';
 import events from '@pirxpilot/events';
 import getBoundingClientRect from 'bounding-client-rect';
 import Emitter from 'component-emitter';
@@ -380,16 +379,12 @@ export default class Tip extends Emitter {
   offset(pos) {
     const { pad } = this;
 
-    const tipRect = getBoundingClientRect(this.el);
-    assert(tipRect, 'could not get bounding client rect of Tip element');
-    const { width: ew, height: eh } = tipRect;
+    const { width: ew, height: eh } = getBoundingClientRect(this.el);
 
     const targetRect = getBoundingClientRect(this.target);
-    assert(targetRect, 'could not get bounding client rect of `target`');
     const { width: tw, height: th } = targetRect;
 
     const to = offset(targetRect, document);
-    assert(to, 'could not determine page offset of `target`');
 
     switch (pos) {
       case 'top':
@@ -432,8 +427,6 @@ export default class Tip extends Emitter {
           top: to.top + th,
           left: to.left + tw / 2 - pad
         };
-      default:
-        assert(false, `invalid position "${pos}"`);
     }
   }
 

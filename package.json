@@ -13,12 +13,8 @@
   "exports": "./index.js",
   "dependencies": {
     "@pirxpilot/events": "~1",
-    "@pirxpilot/nanoassert": "~1",
     "bounding-client-rect": "^1.0.5",
     "component-emitter": "^1.1.3"
-  },
-  "browser": {
-    "assert": "@pirxpilot/nanoassert"
   },
   "repository": {
     "type": "git",
