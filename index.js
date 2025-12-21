@@ -517,7 +517,7 @@ export default class Tip extends Emitter {
 function tip(elem, options) {
   if ('string' === typeof options) options = { value: options };
   const els = 'string' === typeof elem ? document.querySelectorAll(elem) : [elem];
-  els.forEach(function (el) {
+  els.forEach(el => {
     const val = options.value || el.getAttribute('title');
     const tip = new Tip(val, options);
     el.setAttribute('title', '');

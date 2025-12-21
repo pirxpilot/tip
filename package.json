@@ -2,6 +2,12 @@
   "name": "@pirxpilot/tip",
   "description": "Tip component",
   "version": "4.0.0",
+  "type": "module",
+  "exports": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pirxpilot/tip.git"
+  },
   "keywords": [
     "browser",
     "component",
@@ -9,23 +15,18 @@
     "tip",
     "ui"
   ],
-  "type": "module",
-  "exports": "./index.js",
   "dependencies": {
     "@pirxpilot/events": "~3",
     "bounding-client-rect": "^1.0.5",
     "component-emitter": "~2"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/pirxpilot/tip.git"
+  "devDependencies": {
+    "@biomejs/biome": "2.3.10",
+    "esbuild": "^0.27.2"
   },
   "license": "MIT",
   "files": [
     "index.js",
     "tip.css"
-  ],
-  "devDependencies": {
-    "@biomejs/biome": "^1.9.4"
-  }
+  ]
 }
