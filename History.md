@@ -1,4 +1,10 @@
 
+4.1.0 / 2025-12-21
+==================
+
+ * use popover API to display tips
+ * add dev dependencies
+
 4.0.0 / 2025-04-27
 ==================
 
