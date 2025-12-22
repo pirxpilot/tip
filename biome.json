@@ -1,25 +1,40 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "organizeImports": {
-    "enabled": true
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
   },
   "vcs": {
+    "enabled": true,
+    "clientKind": "git",
     "useIgnoreFile": true
   },
   "files": {
-    "ignoreUnknown": true,
-    "ignore": ["package.json", "build"]
+    "ignoreUnknown": true
   },
   "formatter": {
     "enabled": true,
-    "useEditorconfig": true
+    "useEditorconfig": true,
+    "lineWidth": 120
+  },
+  "html": {
+    "formatter": {
+      "enabled": true
+    }
   },
   "javascript": {
     "formatter": {
       "quoteStyle": "single",
       "trailingCommas": "none",
-      "arrowParentheses": "asNeeded",
-      "lineWidth": 120
+      "arrowParentheses": "asNeeded"
+    }
+  },
+  "json": {
+    "formatter": {
+      "expand": "always"
     }
   },
   "linter": {
@@ -31,14 +46,14 @@
         "noUnusedVariables": "error"
       },
       "complexity": {
-        "noForEach": "off",
-        "useArrowFunction": "off",
-        "useLiteralKeys": "off"
+        "noForEach": "off"
       },
       "style": {
-        "noParameterAssign": "off",
-        "useNodejsImportProtocol": "off",
-        "useTemplate": "off"
+        "noUnusedTemplateLiteral": "error",
+        "noUselessElse": "error",
+        "useDefaultParameterLast": "error",
+        "useNumberNamespace": "error",
+        "useSingleVarDeclarator": "error"
       },
       "performance": {
         "noDelete": "off"
@@ -47,5 +62,17 @@
         "noAssignInExpressions": "off"
       }
     }
-  }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "test/*.html"
+      ],
+      "javascript": {
+        "globals": [
+          "Tip"
+        ]
+      }
+    }
+  ]
 }

@@ -1,5 +1,5 @@
 .tip {
-  position: absolute;
+  all: initial;
   padding: 5px;
   z-index: 1000;
   /* default offset for edge-cases: https://github.com/component/tip/pull/12 */

@@ -1,18 +1,18 @@
+[![NPM version][npm-image]][npm-url]
+[![Build Status][build-image]][build-url]
+[![Dependency Status][deps-image]][deps-url]
+
 # Tip
 
   Tip component. Inspired by [tipsy](https://github.com/jaz303/tipsy) without the weird jQuery
   API.
 
-  ![js tip component](http://f.cl.ly/items/2H1D232Y0g1T3g1G0l3s/Screen%20Shot%202012-08-02%20at%202.31.50%20PM.png)
-  ![js tip with markup](http://f.cl.ly/items/2h1F2B1P1C3M0g0a0M0n/Screen%20Shot%202012-08-02%20at%203.34.06%20PM.png)
 
-  ![js maru](http://f.cl.ly/items/1I2V2o0q3M2p1E2H183w/Screen%20Shot%202012-08-02%20at%206.48.28%20PM.png)
-
-  Live demo is [here](http://component.github.io/tip/).
+  Live demo is [here](http://pirxpilot.github.io/tip/).
 
 ## Installation
 
-``` bash
+```sh
 $ npm install @pirxpilot/tip
 ```
 
@@ -100,3 +100,12 @@ Options:
 ## License
 
   MIT
+
+[npm-image]: https://img.shields.io/npm/v/@pirxpilot/tip
+[npm-url]: https://npmjs.org/package/@pirxpilot/tip
+
+[build-url]: https://github.com/pirxpilot/tip/actions/workflows/check.yaml
+[build-image]: https://img.shields.io/github/actions/workflow/status/pirxpilot/tip/check.yaml?branch=main
+
+[deps-image]: https://img.shields.io/librariesio/release/npm/@pirxpilot/tip
+[deps-url]: https://libraries.io/npm/@pirxpilot%2Ftip

@@ -1,51 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
     <title>Tip</title>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" type="text/css" href="../build/build.css" />
-    <link rel="stylesheet" href="../build/aurora-tip.css" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="../build/build.css">
+    <link rel="stylesheet" href="../build/aurora-tip.css">
     <style>
-      body {
-        padding: 60px;
-        font: 300 14px 'Helvetica Neue', Helvetica, Arial;
-        min-height: 1000px;
-      }
-      a {
-        display: inline-block;
-        float: left;
-        border: 1px solid #eee;
-        padding: 10px;
-        color: black;
-        text-decoration: none;
-        margin: 80px 15px;
-        width: 180px;
-        height: 30px;
-        line-height: 30px;
-        text-align: center;
-        position: relative;
-      }
-      a::after {
-        display: block;
-        content: '.';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        color: #ddd;
-      }
-      #links {
-        min-width: 800px;
-      }
-      #big {
-        margin: 80px;
-        width: 80%;
-      }
-      #border {
-        border-width: 10px;
-      }
-      .hide-tip {
-        margin-left: 4em;
-      }
+    body {
+      padding: 60px;
+      font: 300 14px sans-serif;
+      min-height: 1000px;
+    }
+    a {
+      display: inline-block;
+      float: left;
+      border: 1px solid #eee;
+      padding: 10px;
+      color: black;
+      text-decoration: none;
+      margin: 80px 15px;
+      width: 180px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      position: relative;
+    }
+    a::after {
+      display: block;
+      content: ".";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: #ddd;
+    }
+    #links {
+      min-width: 800px;
+    }
+    #big {
+      margin: 80px;
+      width: 80%;
+    }
+    #border {
+      border-width: 10px;
+    }
+    .hide-tip {
+      margin-left: 4em;
+    }
     </style>
   </head>
   <body>
@@ -75,82 +75,78 @@
       <a href="#" id="border">Thick border</a>
     </div>
     <script>
-      Tip = Tip.default;
-      '#bottom,#left,#right,#top,#bottom-right,#bottom-left,#top-right,#top-left'
-        .split(',')
-        .forEach(function (id) {
-          var el = document.querySelector(id),
-            tip = new Tip(el.textContent);
-          tip.position(el.textContent.toLowerCase().split('-').join(' '));
+    Tip = Tip.default;
+    '#bottom,#left,#right,#top,#bottom-right,#bottom-left,#top-right,#top-left'.split(',').forEach(id => {
+      const el = document.querySelector(id);
+      const tip = new Tip(el.textContent);
+      tip.position(el.textContent.toLowerCase().split('-').join(' '));
 
-          el.addEventListener('mouseenter', function () {
-            tip.show(el);
-          });
-          el.addEventListener('mouseleave', function () {
-            tip.hide(200);
-          });
-        });
-
-      var component = new Tip(
-        '<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />'
-      );
-      component.show('#component');
-
-      var component_static = new Tip(
-        '<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />',
-        { static: true }
-      );
-      component_static.show('#component-static');
-
-      var tip = new Tip('<input type="search" placeholder="Search" />');
-      tip.position('top');
-
-      var el = document.querySelector('#markup');
-      el.addEventListener('mouseenter', function () {
-        tip.show('#markup');
+      el.addEventListener('mouseenter', () => {
+        tip.show(el);
       });
-      el.addEventListener('mouseleave', function () {
+      el.addEventListener('mouseleave', () => {
         tip.hide(200);
       });
+    });
 
-      var auto = new Tip('Some tip contents');
-      auto.position('bottom');
-      auto.show('#auto-bottom');
+    const component = new Tip(
+      '<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />'
+    );
+    component.show('#component');
 
-      var auto = new Tip('Some tip contents');
-      auto.position('top');
-      auto.show('#auto-top');
+    const component_static = new Tip(
+      '<img src="https://avatars2.githubusercontent.com/u/1687071?v=3" width="200" height="200" />',
+      { static: true }
+    );
+    component_static.show('#component-static');
 
-      Tip.of('a[title]', { delay: 1000 });
+    const tip = new Tip('<input type="search" placeholder="Search" />');
+    tip.position('top');
 
-      var absolute = new Tip('(25, 25)');
-      absolute.show(25, 25).position('right');
-      document
-        .querySelector('.hide-tip')
-        .addEventListener('click', function () {
-          absolute.hide();
-        });
+    const el = document.querySelector('#markup');
+    el.addEventListener('mouseenter', () => {
+      tip.show('#markup');
+    });
+    el.addEventListener('mouseleave', () => {
+      tip.hide(200);
+    });
 
-      Tip.of('#hover-value', { delay: 1000, value: 'Hello' });
+    let auto = new Tip('Some tip contents');
+    auto.position('bottom');
+    auto.show('#auto-bottom');
 
-      Tip.of('#terse-hover-value', 'Hi');
+    auto = new Tip('Some tip contents');
+    auto.position('top');
+    auto.show('#auto-top');
 
-      var big = new Tip('Just a bigger tip example');
-      big.show('#big');
-      big.position('top left');
+    Tip.of('a[title]', { delay: 1000 });
 
-      var border = new Tip('Tip below');
-      border
-        .position('bottom', {
-          auto: false
-        })
-        .show('#border');
-      border = new Tip('Tip on the right');
-      border
-        .position('right', {
-          auto: false
-        })
-        .show('#border');
+    const absolute = new Tip('(25, 25)');
+    absolute.show(25, 25).position('right');
+    document.querySelector('.hide-tip').addEventListener('click', () => {
+      absolute.hide();
+    });
+
+    Tip.of('#hover-value', { delay: 1000, value: 'Hello' });
+
+    Tip.of('#terse-hover-value', 'Hi');
+
+    const big = new Tip('Just a bigger tip example');
+    big.show('#big');
+    big.position('top left');
+
+    let border = new Tip('Tip below');
+    border
+      .position('bottom', {
+        auto: false
+      })
+      .show('#border');
+    border = new Tip('Tip on the right');
+    border
+      .position('right', {
+        auto: false
+      })
+      .show('#border');
     </script>
   </body>
 </html>

@@ -1,13 +1,18 @@
 PROJECT = tip
+NODE_BIN=./node_modules/.bin
 CSS = tip.css
+
+all: check compile
+
+check: lint
 
 compile: build/build.js build/build.css build/aurora-tip.css
 
 build:
 	mkdir -p $@
 
-build/build.js: index.js | build node_modules
-	esbuild \
+build/build.js: index.js | build
+	$(NODE_BIN)/esbuild \
 		--bundle $< \
 		--define:DEBUG=true \
 		--global-name=Tip \
@@ -23,24 +28,16 @@ build/aurora-tip.css: | build
 		--output $@ \
 		https://raw.githubusercontent.com/component/aurora-tip/master/aurora-tip.css
 
-node_modules: package.json
-	yarn
-	touch $@
+lint:
+	$(NODE_BIN)/biome ci
+
+format:
+	$(NODE_BIN)/biome check --fix
 
 clean:
 	rm -fr build node_modules
 
-test: build build/build.css build/aurora-tip.css
+test: compile
 	@open test/index.html
 
-.PHONY: clean test compile
-
-check: lint
-
-lint:
-	./node_modules/.bin/biome ci
-
-format:
-	./node_modules/.bin/biome check --fix
-
-.PHONY: check format lint
+.PHONY: clean lint format check all test compile
