@@ -13,6 +13,7 @@ function html() {
   el.appendChild(create('div', 'tip-arrow'));
   const inner = create('div', 'tip-inner');
   el.appendChild(inner);
+  el.popover = 'manual';
   return { el, inner };
 }
 
@@ -175,6 +176,8 @@ export default class Tip extends Emitter {
 
     // show it
     document.body.appendChild(this.el);
+    const source = typeof el === 'number' ? this.target : el;
+    this.el.showPopover({ source });
     this.el.classList.add(`tip-${this._position.replace(/\s+/g, '-')}`);
     this.el.classList.remove('tip-hide');
 
@@ -495,6 +498,7 @@ export default class Tip extends Emitter {
     }
     this.emit('hide');
 
+    this.el.hidePopover();
     this.el.remove();
     return this;
   }
