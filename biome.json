@@ -40,7 +40,11 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true,
+      "preset": "recommended",
+      "a11y": {
+        "useButtonType": "off",
+        "useValidAnchor": "off"
+      },
       "correctness": {
         "noUndeclaredVariables": "error",
         "noUnusedVariables": "error"
