@@ -1,4 +1,10 @@
 
+4.1.1 / 2026-07-09
+==================
+
+ * fix reseting font-family in default style
+ * upgrade dev dependencies
+
 4.1.0 / 2025-12-21
 ==================
 
