@@ -1,5 +1,6 @@
 .tip {
   all: initial;
+  font-family: inherit;
   padding: 5px;
   z-index: 1000;
   /* default offset for edge-cases: https://github.com/component/tip/pull/12 */
